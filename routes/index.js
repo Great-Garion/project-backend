@@ -17,6 +17,6 @@ router.use("/user", userRouter);
 router.use("/seller", sellerRouter);
 router.use("/product", productRouter);
 router.use("/consumer", consumerRouter);
-router.usr("/transaksi", transaksiRouter);
+router.use("/transaksi", transaksiRouter);
 
 module.exports = router;
