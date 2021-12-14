@@ -1,77 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const sellers = require("../models/seller");
+const {
+  getAllSeller,
+  getSellerByID,
+  addNewSeller,
+  deleteSeller,
+  editSeller,
+} = require("../controllers/sellerController");
+router.get("/", getAllSeller);
 
-router.get("/", async (req, res) => {
-  try {
-    const dataSeller = await sellers.find({}, "-__v").populate("user");
+router.get("/:id", getSellerByID);
 
-    res.json(dataSeller);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message || "Internam Server Error",
-    });
-  }
-});
+router.post("/", addNewSeller);
 
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const dataSeller = await sellers.findById(id);
+router.delete("/:id", deleteSeller);
 
-    res.json(dataSeller);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message || "Internal Server Error",
-    });
-  }
-});
+router.put("/:id", editSeller);
 
-router.post("/", async (req, res) => {
-  try {
-    let newSeller = req.body;
-    await sellers.create(newSeller);
-
-    res.json("success");
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: err.message || "Internal Server Error",
-    });
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    await sellers.findByIdAndDelete(id);
-
-    res.json("success");
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message || "Internal Server Error",
-    });
-  }
-});
-
-router.put("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const update = {
-      user: req.body.user,
-    };
-
-    await sellers.findByIdAndUpdate(id, update);
-    res.json("success");
-  } catch (error) {
-    res.status(500).json({
-      message: err.message || "Internal Server Error",
-    });
-  }
-});
-
-module.exports = router
+module.exports = router;
