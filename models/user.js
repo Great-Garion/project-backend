@@ -9,6 +9,6 @@ const dataUser = new Schema ({
     isAdmin: Boolean,
 })
 
-const users = mongoose.model("users", dataUser);
+const users = mongoose.model("user", dataUser);
 
 module.exports = users;
