@@ -34,7 +34,7 @@ module.exports = {
     try {
       let newSeller = req.body;
       await sellers.create(newSeller);
-  
+
       res.json("success");
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ module.exports = {
     try {
       const { id } = req.params;
       await sellers.findByIdAndDelete(id);
-  
+
       res.json("success");
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ module.exports = {
       const update = {
         user: req.body.user,
       };
-  
+
       await sellers.findByIdAndUpdate(id, update);
       res.json("success");
     } catch (error) {
@@ -72,5 +72,5 @@ module.exports = {
         message: err.message || "Internal Server Error",
       });
     }
-  }
+  },
 };

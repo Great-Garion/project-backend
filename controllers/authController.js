@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const users = require("../models/user");
+const User = require("../models/user");
 
 module.exports = {
   addRegis: async (req, res) => {
@@ -12,17 +12,18 @@ module.exports = {
       const hash = bcrypt.hashSync(dataRegis.password, salt);
       dataRegis.password = hash;
 
-      await users.create(dataRegis);
+      await User.create(dataRegis);
       res.json("user has been register");
     } catch (error) {
       res.json({ message: error.message || "internal server error" });
     }
   },
+
   addLogin: async (req, res) => {
     try {
       const dataLogin = req.body;
 
-      const user = await users.findOne({ email: dataLogin.email });
+      const user = await User.findOne({ email: dataLogin.email });
       if (user) {
         const validatePassword = bcrypt.compareSync(
           dataLogin.password,
@@ -44,4 +45,6 @@ module.exports = {
       res.json({ message: error.message || "internal server error" });
     }
   },
+
+  
 };
