@@ -1,18 +1,18 @@
 const express = require("express");
 const app = express();
 
-const routes = require("./routes")
+const router = require("./routes")
 const PORT = process.env.PORT || 3000;
 
 const db = require("./config/connect")
 
 app.use(express.json());
-app.use(routes)
+app.use(router)
 
 db.connection.on("error", (err) => {
   console.log(err);
 });
 
 app.listen(PORT, () => {
-  console.log("garion mall running on port " + PORT);
+  console.log("garion Mall From Express Running on PORT " + PORT);
 });

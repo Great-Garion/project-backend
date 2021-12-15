@@ -1,23 +1,25 @@
-const express = require("express")
-const router = express.Router()
-const validateToken = require("../middleware/middleware")
+const express = require("express");
+const router = express.Router();
 
-
-const authRouter = require("./auth.routers")
-const userRouter = require("./user.router")
-
+const authRouter = require("./auth.routers");
+const userRouter = require("./userRouter");
+const sellerRouter = require("./sellerRouter");
+const productRouter = require("./productRouter");
+const consumerRouter = require("./consumerRouter");
+const transaksiRouter = require("./transaksiRouter");
+const validateToken = require("../middleware/middleware");
 
 router.get("/", (req, res) => {
-    res.json("belajar auth dari express")
-})
-
-router.use("/auth", authRouter)
+  res.json("Garion Mall");
+});
+router.use("/auth", authRouter);
 
 router.use(validateToken)
-router.use("/user", userRouter)
 
+router.use("/user", userRouter);
+router.use("/seller", sellerRouter);
+router.use("/product", productRouter);
+router.use("/consumer", consumerRouter);
+router.use("/transaksi", transaksiRouter);
 
-
-
-
-module.exports = router
+module.exports = router;
