@@ -1,12 +1,11 @@
 const users = require("../models/user");
 
 module.exports = {
-   getAllUser: async (req, res) => {
+  getAllUser: async (req, res) => {
     try {
       const Users = await users.find({}, "-password -__v");
-  
+
       res.json(Users);
-      
     } catch (error) {
       console.log(error);
       res.status(500).json({
@@ -19,7 +18,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const userByID = await users.findById(id, "-password -__v");
-  
+
       res.json(userByID);
     } catch (error) {
       console.log(error);
@@ -33,7 +32,7 @@ module.exports = {
     try {
       let postUser = req.body;
       await users.create(postUser);
-  
+
       res.json("user has been created");
     } catch (error) {
       console.log(error);
@@ -47,7 +46,7 @@ module.exports = {
     try {
       const { id } = req.params;
       await users.findByIdAndDelete(id);
-  
+
       res.json("successfully delete user");
     } catch (error) {
       console.log(error);
@@ -67,9 +66,9 @@ module.exports = {
         password: req.body.password,
         isAdmin: req.body.isAdmin,
       };
-  
+
       await users.findByIdAndUpdate(id, update);
-  
+
       res.json("successfully updated user");
     } catch (error) {
       console.log(error);
@@ -77,5 +76,5 @@ module.exports = {
         message: error.message || "Internal Server Error",
       });
     }
-  }
-}
+  },
+};
